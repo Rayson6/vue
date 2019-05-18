@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <header class="header">
+            <div class="header_container">
+                <input type="text" placeholder="添加ToDo" @keyup.enter="enterkey()" v-model="val">
+            </div>
+        </header>
+        <main class="main">
+            <div class="main_container">
+                <h3>正在进行</h3>
+                <ul>
+                    <li v-for="(item,i) in ingList"><i :class="{'active':item.flag}" @click="ok(i)"></i> <span>{{item.val}}</span>
+                        <button @click="ingdel(i)">删除</button>
+                    </li>
+                </ul>
+                <h3>已经完成</h3>
+                <ol>
+                    <li v-for="(item,i) in edList"><i :class="{'active':item.flag}" @click="ing(i)"></i> <span>{{item.val}}</span>
+                        <button @click="eddel(i)">删除</button>
+                    </li>
+
+                </ol>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <script>
+        new Vue({
+            el: "#wrap",
+            data: {
+                val: "",
+                ingList: [],
+                edList: []
+            },
+            methods: {
+                enterkey() {
+                    let obj = {
+                        val: this.val,
+                        flag: false
+                    }
+                    this.ingList.push(obj)
+                },
+                ok(ind) {
+                    this.edList.push({
+                        val: this.ingList[ind].val,
+                        flag: true
+                    })
+                    this.ingList.splice(ind, 1);
+
+                },
+                ing(i) {
+                    this.ingList.push({
+                        val: this.edList[i].val,
+                        flag: false
+                    })
+                    this.edList.splice(i, 1)
+                },
+                ingdel(i) {
+                    this.ingList.splice(i, 1)
+                },
+                eddel(i) {
+                    this.edList.splice(i, 1)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

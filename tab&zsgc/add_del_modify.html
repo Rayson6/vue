@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="wrap">
+        <h3>班级人员</h3>
+        <ul>
+            <li v-for="(item,index) in arr">
+                <span>姓名:{{item.name}}</span><span>年龄:{{item.sex}}</span> <button @click="detail(item)">明细</button> <button @click="del(index)">删除</button>
+            </li>
+        </ul>
+
+
+        <input type="text" v-model="name">
+        <select v-model="sex">
+            <option :value="item" v-for="(item,index) in sexArr">{{item}}</option>
+            <!-- <option value="女">女</option> -->
+        </select>
+        <button @click="submi">提交</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let arr = [];
+        let vm = new Vue({
+            el: "#wrap",
+            data: {
+                arr: arr,
+                name: "",
+                sex: "男",
+                sexArr: ["男", "女"]
+            },
+
+            methods: {
+                submi() {
+                    let obj = {
+                        name: this.name,
+                        sex: this.sex
+                    }
+                    this.arr.push(obj)
+                },
+                del(ind) {
+                    this.arr.splice(ind, 1)
+                },
+                detail(item) {
+                    alert("姓名：" + item.name + "    性别：" + item.sex)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

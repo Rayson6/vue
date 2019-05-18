@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        #wrap {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        
+        ul>li,
+        ol>li {
+            list-style: none;
+        }
+        
+        ul {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        ul>li {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 15px 50px;
+        }
+        
+        .active {
+            background: yellow;
+        }
+        
+        .main {
+            width: 100%;
+            flex: 1;
+            background: lightgreen;
+            overflow: hidden;
+        }
+        
+        .box {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <ul>
+            <li v-for="(item,index) in list" :class="{active:index==ind}" @click="tab(index)">{{item.title}}</li>
+            <!-- <li class="active">新闻</li>
+            <li>国内</li> -->
+        </ul>
+        <div class="main">
+            <div v-for="(item,index) in list[ind].data" class="['box']">{{item.txt}}</div>
+
+        </div>
+        <footer class="footer"></footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        let obj = {
+            ind: 0,
+            list: [{
+                "title": "推荐",
+                "data": [{
+                    txt: "推荐阿大厦附近路口克拉斯九分裤"
+                }, {
+                    txt: "推荐发简历克拉科夫"
+                }, {
+                    txt: "推荐加法兰克大数据风口浪尖"
+                }]
+            }, {
+                "title": "列表",
+                "data": [{
+                    txt: "列表阿大厦附近路口克拉斯九分裤"
+                }, {
+                    txt: "列表发简历克拉科夫"
+                }, {
+                    txt: "列表加法兰克大数据风口浪尖"
+                }]
+            }]
+        }
+
+        let vm = new Vue({
+            el: "#wrap",
+            data: obj,
+            methods: {
+                tab(ind) {
+                    this.ind = ind;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
